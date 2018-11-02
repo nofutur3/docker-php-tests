@@ -2,7 +2,7 @@ FROM php:7.0-alpine
 
 MAINTAINER Jakub Vyvazil <jakub@vyvazil.cz>
 
-ENV NODE_VERSION 10.9.0
+ENV NODE_VERSION 10.13.0
 
 # update libs
 RUN apk update && apk upgrade
@@ -84,10 +84,11 @@ RUN addgroup -g 1000 node \
     && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
 # Install npm & upgrade to latest version
-RUN apk add --update nodejs-npm && npm install -g npm
+#RUN apk add --update nodejs-npm &&
+RUN npm install -g npm
 
 # Install yarn
-RUN apk add --update yarn
+RUN npm install -g yarn
 
 # Fix for iconv: https://github.com/docker-library/php/issues/240
 #ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php

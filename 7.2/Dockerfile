@@ -2,7 +2,7 @@ FROM php:7.2-alpine
 
 MAINTAINER Jakub Vyvazil <jakub@vyvazil.cz>
 
-ENV NODE_VERSION 10.9.0
+ENV NODE_VERSION 10.13.0
 
 # updated libs
 RUN apk update && apk upgrade
@@ -25,16 +25,24 @@ RUN apk add --update \
 RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
 RUN ln -s /lib/libz.so /usr/lib/ && ln -s /lib/libz.a /usr/lib
 
+# install postgres - required by pgsql php extension
+RUN apk add --no-cache postgresql-dev
+
 # install php extensions
 RUN docker-php-ext-install \
     bcmath \
     gd \
     iconv \
     mbstring \
+    pgsql \
     pdo \
     pdo_mysql \
+    pdo_pgsql \
     soap \
     zip
+
+# remove postgres - not required anymore
+#RUN apk del .pg-deps
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

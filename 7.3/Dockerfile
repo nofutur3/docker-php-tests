@@ -1,10 +1,10 @@
-FROM php:7.1-alpine
+FROM php:7.3-rc-alpine
 
 MAINTAINER Jakub Vyvazil <jakub@vyvazil.cz>
 
 ENV NODE_VERSION 10.13.0
 
-# update libs
+# updated libs
 RUN apk update && apk upgrade
 
 # install libs
@@ -19,7 +19,12 @@ RUN apk add --update \
     libpng \
     libpng-dev \
     libxml2-dev \
+    #libzip \
     zlib-dev
+
+# hacks
+RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
+#RUN ln -s /lib/libz.so /usr/lib/ && ln -s /lib/libz.a /usr/lib
 
 # install php extensions
 RUN docker-php-ext-install \
@@ -29,8 +34,8 @@ RUN docker-php-ext-install \
     mbstring \
     pdo \
     pdo_mysql \
-    soap \
-    zip
+    soap
+    #zip
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
