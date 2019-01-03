@@ -19,7 +19,8 @@ RUN apk add --update \
     libpng \
     libpng-dev \
     libxml2-dev \
-    zlib-dev
+    zlib-dev \
+    icu-dev
 
 # hacks
 RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
@@ -39,7 +40,8 @@ RUN docker-php-ext-install \
     pdo_mysql \
     pdo_pgsql \
     soap \
-    zip
+    zip \
+    intl
 
 # remove postgres - not required anymore
 #RUN apk del .pg-deps
