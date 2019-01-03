@@ -19,7 +19,8 @@ RUN apk add --update \
     libpng \
     libpng-dev \
     libxml2-dev \
-    zlib-dev
+    zlib-dev \
+    icu-dev
 
 # install php extensions
 RUN docker-php-ext-install \
@@ -30,7 +31,8 @@ RUN docker-php-ext-install \
     pdo \
     pdo_mysql \
     soap \
-    zip
+    zip \
+    intl
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

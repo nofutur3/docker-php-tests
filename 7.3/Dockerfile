@@ -20,7 +20,8 @@ RUN apk add --update \
     libpng-dev \
     libxml2-dev \
     #libzip \
-    zlib-dev
+    zlib-dev \
+    icu-dev
 
 # hacks
 RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
@@ -34,8 +35,9 @@ RUN docker-php-ext-install \
     mbstring \
     pdo \
     pdo_mysql \
-    soap
+    soap \
     #zip
+    intl
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
