@@ -20,6 +20,11 @@ RUN apk add --update \
 RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
 #RUN ln -s /lib/libz.so /usr/lib/ && ln -s /lib/libz.a /usr/lib
 
+# amqp extension
+RUN apk add rabbitmq-c rabbitmq-c-dev autoconf g++ make \
+    && pecl install amqp \
+    && docker-php-ext-enable amqp
+
 # install php extensions
 RUN docker-php-ext-install \
     bcmath \
