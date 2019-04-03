@@ -1,4 +1,4 @@
-FROM php:7.0-alpine
+FROM php:7.2-alpine
 
 MAINTAINER Jakub Vyvazil <jakub@vyvazil.cz>
 
@@ -11,28 +11,7 @@ RUN apk update && apk upgrade
 RUN apk add --update \
     git \
     openssh-client \
-    freetype \
-    freetype-dev \
-    libgcrypt-dev \
-    libjpeg-turbo \
-    libjpeg-turbo-dev \
-    libpng \
-    libpng-dev \
-    libxml2-dev \
-    zlib-dev\
-    icu-dev
-
-# install php extensions
-RUN docker-php-ext-install \
-    bcmath \
-    gd \
-    iconv \
-    mbstring \
-    pdo \
-    pdo_mysql \
-    soap \
-    zip \
-    intl
+    postgresql-dev
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -86,11 +65,7 @@ RUN addgroup -g 1000 node \
     && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
 # Install npm & upgrade to latest version
-#RUN apk add --update nodejs-npm &&
-RUN npm install -g npm
+RUN apk add --update nodejs-npm && npm install -g npm
 
 # Install yarn
-RUN npm install -g yarn
-
-# Fix for iconv: https://github.com/docker-library/php/issues/240
-#ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+RUN apk add --update yarn
