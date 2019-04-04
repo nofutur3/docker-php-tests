@@ -15,9 +15,26 @@ RUN apk add --update \
     zlib-dev \
     icu-dev
 
-# hacks
-RUN apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
-RUN ln -s /lib/libz.so /usr/lib/ && ln -s /lib/libz.a /usr/lib
+# prepare compilator and dir for iconv build
+RUN apk add --no-cache --virtual .build-deps \
+    g++ \
+    gcc \
+    make &&\
+    mkdir iconv_build
+
+# download and extract iconv source
+RUN wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz --output-document=iconv_build/libiconv-1.15.tar.gz &&\
+    tar xvzf iconv_build/libiconv-1.15.tar.gz -C iconv_build/
+
+# build iconv lib
+WORKDIR "/iconv_build/libiconv-1.15"
+RUN ./configure --prefix=/usr --enable-extra-encodings &&\
+    make &&\
+    make install
+WORKDIR "/"
+
+# clear image after iconv build
+RUN rm iconv_build -r && apk del .build-deps
 
 # install php extensions
 RUN docker-php-ext-install \
