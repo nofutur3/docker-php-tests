@@ -15,6 +15,27 @@ RUN apk add --update \
     zlib-dev \
     icu-dev
 
+# prepare compilator and dir for iconv build
+RUN apk add --no-cache --virtual .build-deps \
+    g++ \
+    gcc \
+    make &&\
+    mkdir iconv_build
+
+# download and extract iconv source
+RUN wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz --output-document=iconv_build/libiconv-1.15.tar.gz &&\
+    tar xvzf iconv_build/libiconv-1.15.tar.gz -C iconv_build/
+
+# build iconv lib
+WORKDIR "/iconv_build/libiconv-1.15"
+RUN ./configure --prefix=/usr --enable-extra-encodings &&\
+    make &&\
+    make install
+WORKDIR "/"
+
+# clear image after iconv build
+RUN rm iconv_build -r && apk del .build-deps
+
 # install php extensions
 RUN docker-php-ext-install \
     bcmath \
@@ -26,3 +47,6 @@ RUN docker-php-ext-install \
     soap \
     zip \
     intl
+
+# Fix for iconv: https://github.com/docker-library/php/issues/240
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
