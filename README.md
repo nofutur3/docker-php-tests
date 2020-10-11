@@ -23,6 +23,7 @@ Works well with Symfony, Laravel and Nette. Other frameworks should work too.
 - NPM
 - YARN
 - Composer
+- Sentry CLI
 
 ## Extensions
 

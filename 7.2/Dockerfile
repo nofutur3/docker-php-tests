@@ -50,5 +50,8 @@ RUN docker-php-ext-install \
     zip \
     intl
 
+# install sentry CLI
+RUN npm install @sentry/cli -g --unsafe-perm
+
 # Fix for iconv: https://github.com/docker-library/php/issues/240
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
