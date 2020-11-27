@@ -36,10 +36,19 @@ RUN apk add rabbitmq-c rabbitmq-c-dev autoconf g++ make \
 # zip extension
 RUN docker-php-ext-configure zip && docker-php-ext-install zip
 
+# GD extension
+RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
+  docker-php-ext-configure gd \
+  && NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+  docker-php-ext-install -j${NPROC} gd && \
+  apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev
+
+# bcmath extension
+RUN docker-php-ext-configure bcmath --enable-bcmath && docker-php-ext-install bcmath
+
+
 # install php extensions
 RUN docker-php-ext-install \
-    bcmath \
-    gd \
     iconv \
     mbstring \
     pdo \
@@ -47,6 +56,8 @@ RUN docker-php-ext-install \
     soap \
     intl \
     sockets
+
+RUN php -m
 
 RUN apk del .deps && \
     rm -rf /var/cache/apk/*
