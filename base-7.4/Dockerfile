@@ -64,4 +64,4 @@ RUN addgroup -g 1000 node \
 RUN npm install -g npm
 
 # Install yarn
-RUN npm install -g yarn
+RUN apk add yarn
