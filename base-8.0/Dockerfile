@@ -2,7 +2,8 @@ FROM php:8.0-alpine
 
 MAINTAINER Jakub Vyvazil <jakub@vyvazil.cz>
 
-ENV NODE_VERSION 8.11.4
+ENV NODE_VERSION 10.13.0
+ENV NPM_VERSION 7.11.2
 
 # update libs
 RUN apk update && apk upgrade
@@ -61,7 +62,7 @@ RUN addgroup -g 1000 node \
     && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
 # Install npm & upgrade to latest version
-RUN npm install -g npm
+RUN npm install -g npm@$NPM_VERSION
 
 # Install yarn
 RUN npm install -g yarn

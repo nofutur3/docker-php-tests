@@ -3,6 +3,7 @@ FROM php:7.1-alpine
 MAINTAINER Jakub Vyvazil <jakub@vyvazil.cz>
 
 ENV NODE_VERSION 10.13.0
+ENV NPM_VERSION 7.11.2
 
 # update libs
 RUN apk update && apk upgrade
@@ -65,7 +66,7 @@ RUN addgroup -g 1000 node \
 
 # Install npm & upgrade to latest version
 #RUN apk add --update nodejs-npm &&
-RUN npm install -g npm
+RUN npm install -g npm@$NPM_VERSION
 
 # Install yarn
 #RUN apk add --update yarn
