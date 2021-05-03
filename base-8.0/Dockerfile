@@ -1,8 +1,8 @@
-FROM php:7.2.13-alpine
+FROM php:8.0-alpine
 
 MAINTAINER Jakub Vyvazil <jakub@vyvazil.cz>
 
-ENV NODE_VERSION 10.13.0
+ENV NODE_VERSION 8.11.4
 
 # update libs
 RUN apk update && apk upgrade
@@ -10,14 +10,10 @@ RUN apk update && apk upgrade
 # install libs
 RUN apk add --update \
     git \
-    openssh-client \
-    postgresql-dev
+    openssh-client
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# install prestissimo for composer
-RUN composer global require hirak/prestissimo
 
 # install latest node
 RUN addgroup -g 1000 node \
@@ -33,7 +29,7 @@ RUN addgroup -g 1000 node \
         libgcc \
         linux-headers \
         make \
-        python \
+        python2 \
   # gpg keys listed at https://github.com/nodejs/node#release-team
   && for key in \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
@@ -65,7 +61,7 @@ RUN addgroup -g 1000 node \
     && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
 # Install npm & upgrade to latest version
-RUN apk add --update nodejs-npm && npm install -g npm
+RUN npm install -g npm
 
 # Install yarn
-RUN apk add --update yarn
+RUN npm install -g yarn

@@ -52,7 +52,19 @@ RUN docker-php-ext-install \
     pdo_mysql \
     soap \
     #zip
-    intl
+    intl \
+    sockets
+
+# libzip
+RUN apk add --no-cache libpng-dev zlib-dev libzip-dev \
+    && docker-php-ext-configure zip --with-libzip \
+    && docker-php-ext-install zip
+
+# postgres
+RUN apk add libpng-dev git ca-certificates postgresql-libs postgresql-dev bash
+RUN docker-php-ext-install pgsql pdo_pgsql
+RUN apk del postgresql-dev
+
 
 # Fix for iconv: https://github.com/docker-library/php/issues/240
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php

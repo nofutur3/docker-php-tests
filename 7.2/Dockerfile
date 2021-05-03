@@ -42,13 +42,13 @@ RUN docker-php-ext-install \
     gd \
     iconv \
     mbstring \
-    pgsql \
     pdo \
     pdo_mysql \
-    pdo_pgsql \
     soap \
     zip \
     intl
+
+RUN apk add bash
 
 # Fix for iconv: https://github.com/docker-library/php/issues/240
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
