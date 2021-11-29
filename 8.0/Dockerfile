@@ -67,7 +67,8 @@ RUN docker-php-ext-install \
     pdo_mysql \
     soap \
     intl \
-    sockets
+    sockets \
+    sysvsem
 
 RUN php -m
 
