@@ -11,11 +11,9 @@ Works well with Symfony, Laravel and Nette. Other frameworks should work too.
 
 ## Versions (tags)
 
-- `5.6` - deprecated, will be removed soon, security support end on 31 Dec 2018
-- `7.0` - deprecated, will be removed soon, security support end on 3 Dec 2018
-- `7.1`
-- `7.2`
-- `7.3`
+- `7.1` - deprecated, will be removed soon, security support end on 24 Oct 2019
+- `7.2` - deprecated, will be removed soon, security support end on 1 Oct 2020
+- `7.3` - deprecated, will be removed soon, security support end on 6 Dec 2021
 - `7.4`
 - `8.0`
 
