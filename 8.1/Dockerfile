@@ -41,7 +41,7 @@ RUN apk add --no-cache --virtual .iconv-deps \
     make &&\
     mkdir iconv_build
 
-RUN wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz --output-document=iconv_build/libiconv-1.15.tar.gz &&\
+RUN wget https://ftp.wrz.de/pub/gnu/libiconv/libiconv-1.15.tar.gz --output-document=iconv_build/libiconv-1.15.tar.gz &&\
     tar xvzf iconv_build/libiconv-1.15.tar.gz -C iconv_build/
 
 
