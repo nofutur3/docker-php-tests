@@ -16,6 +16,7 @@ Works well with Symfony, Laravel and Nette. Other frameworks should work too.
 - `7.3` - deprecated, will be removed soon, security support end on 6 Dec 2021
 - `7.4`
 - `8.0`
+- `8.1`
 
 ## Libraries
 
