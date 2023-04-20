@@ -15,6 +15,7 @@ RUN apk add --update \
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer1 --1
 
 # install latest node
 RUN addgroup -g 1000 node \

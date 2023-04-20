@@ -25,7 +25,8 @@ RUN apk add --update --no-cache --virtual .deps \
         g++ \
         make \
         pcre-dev \
-        wget
+        wget \
+        linux-headers
 
 # GD extension
 RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
