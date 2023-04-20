@@ -59,6 +59,8 @@ RUN docker-php-ext-configure zip && docker-php-ext-install zip
 # bcmath extension
 RUN docker-php-ext-configure bcmath --enable-bcmath && docker-php-ext-install bcmath
 
+RUN docker-php-ext-install sockets && docker-php-ext-configure sockets && docker-php-ext-enable sockets
+
 # install php extensions
 RUN docker-php-ext-install \
     #iconv \
@@ -67,7 +69,6 @@ RUN docker-php-ext-install \
     pdo_mysql \
     soap \
     intl \
-    sockets \
     sysvsem
 
 RUN php -m
