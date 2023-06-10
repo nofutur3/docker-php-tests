@@ -25,6 +25,7 @@ Works well with Symfony, Laravel and Nette. Other frameworks should work too.
 - NPM
 - YARN
 - Composer
+- Phive
 
 ## Extensions
 

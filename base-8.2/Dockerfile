@@ -11,11 +11,20 @@ RUN apk update && apk upgrade
 # install libs
 RUN apk add --update \
     git \
-    openssh-client
+    openssh-client \
+    gnupg
+
+# install phive
+RUN wget -O phive.phar "https://phar.io/releases/phive.phar" \
+    && wget -O phive.phar.asc "https://phar.io/releases/phive.phar.asc" \
+    && gpg --keyserver hkps://keys.openpgp.org --recv-keys 0x6AF725270AB81E04D79442549D8A98B29B2D5D79 \
+    && gpg --verify phive.phar.asc phive.phar \
+    && rm phive.phar.asc \
+    && chmod +x phive.phar \
+    && mv phive.phar /usr/local/bin/phive
 
 # install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer1 --1
+RUN phive install -g composer --trust-gpg-keys CBB3D576F2A0946F
 
 # install latest node
 RUN addgroup -g 1000 node \
@@ -45,7 +54,6 @@ RUN addgroup -g 1000 node \
         binutils-gold \
         g++ \
         gcc \
-        gnupg \
         libgcc \
         linux-headers \
         make \
