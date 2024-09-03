@@ -22,7 +22,7 @@ RUN wget -O phive.phar "https://phar.io/releases/phive.phar" \
     && mv phive.phar /usr/local/bin/phive
 
 # --> install composer
-COPY --from=composer:2.1 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
 # --> get node & npm from node image
 COPY --from=node:lts-alpine /usr/local/bin /usr/local/bin
