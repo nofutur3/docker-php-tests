@@ -68,7 +68,8 @@ RUN docker-php-ext-install \
     soap \
     intl \
     sockets \
-    sysvsem
+    sysvsem \
+    calendar
 
 RUN php -m
 

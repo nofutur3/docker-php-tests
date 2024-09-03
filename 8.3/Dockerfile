@@ -70,7 +70,8 @@ RUN docker-php-ext-install \
     pdo_mysql \
     soap \
     intl \
-    sysvsem
+    sysvsem \
+    calendar
 
 RUN php -m
 
